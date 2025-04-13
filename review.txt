@@ -1,0 +1,23 @@
+## Project Review
+
+### What Went Well
+- Successfully built a Streamlit app that transforms photos into three styles (Cartoon Portrait, Vintage Photo, Professional Headshot) using Stable Diffusion.
+- Deployed the app to Streamlit Cloud, making it accessible online at https://photo-generator-uohixjwv75cji5qrpshca4.streamlit.app/.
+- Added privacy features, such as deleting temporary files after processing, and ensured basic security by using unique file names to prevent overwriting.
+- Optimized transformation time from 15 minutes to ~48 seconds by reducing `num_inference_steps` and `strength`.
+
+### Challenges Faced
+- Transformation time is still far from the target of <15 seconds (currently ~48 seconds), limited by CPU performance. A GPU would be needed for further improvement.
+- The app crashed during a stress test with multiple simultaneous uploads, indicating a need for better handling of concurrent transformations.
+- Deployment issues on Streamlit Cloud (e.g., `ImportError` with `huggingface_hub` and `RuntimeError: no running event loop`) required multiple fixes, such as pinning dependencies and disabling the file watcher.
+
+### Lessons Learned
+- Dependency management is critical for deployment—pinning versions in `requirements.txt` prevents compatibility issues.
+- Stable Diffusion is resource-intensive and performs better on a GPU; CPU-based apps need careful optimization.
+- Documenting and testing throughout the project (e.g., functional testing, privacy checks) helps catch issues early.
+
+### Future Improvements
+- Implement a task queue (e.g., using Celery) to handle multiple simultaneous transformations without crashing.
+- Explore using a GPU or a lighter model to achieve the <15-second transformation target.
+- Enhance the styling of the app (e.g., improve the upload bar design, as noted earlier).
+- Add more styles or allow users to customize transformation settings (e.g., adjust `strength` or `num_inference_steps`).
